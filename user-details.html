@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1><a href="index.html">Users list</a></h1>
+<script>
+    console.log(location)
+    let userId = new URL(location.href).searchParams.get('id');
+    console.log(userId)
+    let baseURL = `https://jsonplaceholder.typicode.com/users/${userId}`
+    fetch(baseURL)
+        .then(resp=>resp.json())
+        .then(user =>{
+            let userContainer = document.createElement('div');
+            userContainer.classList.add('userContainer');
+            document.body.appendChild(userContainer);
+
+
+
+
+            for (const key in user) {
+               let p = document.createElement('p');
+               userContainer.appendChild(p)
+                p.innerHTML =`${key} - ${user[key]}`;
+
+
+
+               if(key === 'address' || key === 'company'){
+                   let ul = document.createElement('ul')
+
+                   Object.entries(user[key]).forEach(([item, value]) => {
+                       let li = document.createElement('li')
+                       li.innerText=`${item}: ${value}`
+
+                       ul.appendChild(li);
+                   });
+                   userContainer.appendChild(ul)
+               }
+
+
+
+            }
+
+
+
+
+
+
+
+
+            let buttonCurrentPost = document.createElement('button');
+            buttonCurrentPost.classList.add('buttonCurrentPost');
+            buttonCurrentPost.innerText = 'post of current user';
+            userContainer.appendChild(buttonCurrentPost);
+
+        })
+
+
+
+</script>
+
+</body>
+</html>
