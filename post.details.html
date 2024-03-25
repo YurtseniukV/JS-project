@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .postContainer{
+            border: 1px darkslategrey solid;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<a href="user-details.html">about user</a>
+<div class="mainContainer"></div>
+<script>
+
+    let userId = new URL(location.href).searchParams.get('id');
+    console.log(userId)
+    let postURL = `https://jsonplaceholder.typicode.com/posts`
+
+    let getUserPost = function (){
+        fetch(postURL)
+            .then(resp =>resp.json())
+            .then(posts=>{
+let mainContainer = document.querySelector('.mainContainer');
+                for (const post of posts) {
+                    let postContainer = document.createElement('div');
+                    postContainer.classList.add('postContainer')
+
+                    Object.entries(post).forEach(([key, value]) => {
+                        let p = document.createElement('p');
+
+                        p.innerText = `${key} : ${value}`
+
+                        postContainer.appendChild(p)
+                    })
+
+
+
+
+                    mainContainer.appendChild(postContainer);
+                }
+
+                document.body.appendChild(mainContainer)
+            })
+    }
+
+    getUserPost()
+
+</script>
+</body>
+</html>

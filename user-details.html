@@ -12,44 +12,46 @@
     let userId = new URL(location.href).searchParams.get('id');
     console.log(userId)
     let baseURL = `https://jsonplaceholder.typicode.com/users/${userId}`
+    let postsURL = `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+
+
     fetch(baseURL)
-        .then(resp=>resp.json())
-        .then(user =>{
+        .then(resp => resp.json())
+        .then(user => {
+            console.log(user)
             let userContainer = document.createElement('div');
             userContainer.classList.add('userContainer');
             document.body.appendChild(userContainer);
 
 
-
-
             for (const key in user) {
-               let p = document.createElement('p');
-               userContainer.appendChild(p)
-                p.innerHTML =`${key} - ${user[key]}`;
+
+                if (typeof user[key] === 'object') {
+                    let ul = document.createElement('ul')
+                    ul.innerText = `${key} : `
+
+                    Object.entries(user[key]).forEach(([item, value]) => {
+                        let li = document.createElement('li')
+                        if (item === 'geo') {
+                            li.innerText = `${item} ( "${value.lat}" , "${value.lng}" )`
+
+                        } else {
+                            li.innerText = `${item} : ${value}.`
+                        }
 
 
+                        ul.appendChild(li);
+                    });
 
-               if(key === 'address' || key === 'company'){
-                   let ul = document.createElement('ul')
-
-                   Object.entries(user[key]).forEach(([item, value]) => {
-                       let li = document.createElement('li')
-                       li.innerText=`${item}: ${value}`
-
-                       ul.appendChild(li);
-                   });
-                   userContainer.appendChild(ul)
-               }
-
+                    userContainer.appendChild(ul)
+                } else {
+                    let p = document.createElement('p');
+                    userContainer.appendChild(p)
+                    p.innerHTML = `${key} - ${user[key]}`;
+                }
 
 
             }
-
-
-
-
-
-
 
 
             let buttonCurrentPost = document.createElement('button');
@@ -57,8 +59,37 @@
             buttonCurrentPost.innerText = 'post of current user';
             userContainer.appendChild(buttonCurrentPost);
 
-        })
 
+            let getUserPost = function () {
+                fetch(postsURL)
+                    .then(resp => resp.json())
+                    .then(posts => {
+
+                        for (const post of posts) {
+                            console.log(post.title)
+
+                            let postTitle = document.createElement('h3')
+                            postTitle.innerText = post.title;
+
+                            let buttonAboutPost = document.createElement('button');
+                            buttonAboutPost.innerText = 'Read more...'
+
+                            buttonAboutPost.addEventListener('click', () => {
+                                location.href = `post.details.html?id=${user.id}`;
+                            })
+
+                            userContainer.append(postTitle,buttonAboutPost);
+                        }
+
+                    })
+            }
+
+
+            buttonCurrentPost.addEventListener('click', () => {
+                getUserPost()
+            })
+
+        })
 
 
 </script>
