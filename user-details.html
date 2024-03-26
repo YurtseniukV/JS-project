@@ -8,9 +8,9 @@
 
 <h1><a href="index.html">Users list</a></h1>
 <script>
-    console.log(location)
+
     let userId = new URL(location.href).searchParams.get('id');
-    console.log(userId)
+
     let baseURL = `https://jsonplaceholder.typicode.com/users/${userId}`
     let postsURL = `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
 
@@ -57,6 +57,7 @@
             let buttonCurrentPost = document.createElement('button');
             buttonCurrentPost.classList.add('buttonCurrentPost');
             buttonCurrentPost.innerText = 'post of current user';
+
             userContainer.appendChild(buttonCurrentPost);
 
 
@@ -66,19 +67,16 @@
                     .then(posts => {
 
                         for (const post of posts) {
-                            console.log(post.title)
 
                             let postTitle = document.createElement('h3')
                             postTitle.innerText = post.title;
 
-                            let buttonAboutPost = document.createElement('button');
+                            let buttonAboutPost = document.createElement('a');
                             buttonAboutPost.innerText = 'Read more...'
+                            buttonAboutPost.href = `post.details.html?postId=${post.id}`
 
-                            buttonAboutPost.addEventListener('click', () => {
-                                location.href = `post.details.html?id=${user.id}`;
-                            })
 
-                            userContainer.append(postTitle,buttonAboutPost);
+                            userContainer.append(postTitle, buttonAboutPost);
                         }
 
                     })

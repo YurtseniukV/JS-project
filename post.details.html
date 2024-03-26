@@ -5,49 +5,89 @@
     <title>Title</title>
 
     <style>
-        .postContainer{
-            border: 1px darkslategrey solid;
+        .mainContainer {
+            border: 1px yellow solid;
+        }
+
+        .postContainer {
+            border: 1px red solid;
+            margin: 5px;
+        }
+
+        .commentContainer {
+            border: 1px green solid;
             margin: 5px;
         }
     </style>
 </head>
 <body>
 <a href="user-details.html">about user</a>
-<div class="mainContainer"></div>
+<div class="mainContainer">
+    <div class="postContainer">
+
+    </div>
+
+</div>
 <script>
 
-    let userId = new URL(location.href).searchParams.get('id');
-    console.log(userId)
-    let postURL = `https://jsonplaceholder.typicode.com/posts`
+    let postId = new URL(location.href).searchParams.get('postId');
 
-    let getUserPost = function (){
-        fetch(postURL)
-            .then(resp =>resp.json())
-            .then(posts=>{
-let mainContainer = document.querySelector('.mainContainer');
-                for (const post of posts) {
-                    let postContainer = document.createElement('div');
-                    postContainer.classList.add('postContainer')
+    let postsURL = `https://jsonplaceholder.typicode.com/posts/${postId}`;
+    let commentsURL = `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
 
-                    Object.entries(post).forEach(([key, value]) => {
+    let getPostComments = function () {
+        fetch(commentsURL)
+            .then(resp => resp.json())
+            .then(comments => {
+                console.log(comments);
+                for (const comment of comments) {
+                    let postContainer = document.querySelector('.postContainer');
+
+                    let commentContainer = document.createElement('div');
+                    commentContainer.classList.add('commentContainer')
+
+                    Object.entries(comment).forEach(([key, value]) => {
                         let p = document.createElement('p');
 
                         p.innerText = `${key} : ${value}`
+                        commentContainer.appendChild(p)
 
-                        postContainer.appendChild(p)
                     })
 
+                    postContainer.appendChild(commentContainer)
 
-
-
-                    mainContainer.appendChild(postContainer);
                 }
 
-                document.body.appendChild(mainContainer)
+
+            })
+
+    }
+
+
+
+    let getUserPost = function () {
+        fetch(postsURL)
+            .then(resp => resp.json())
+            .then(post => {
+
+                let mainContainer = document.querySelector('.mainContainer');
+
+                let postContainer = document.querySelector('.postContainer');
+
+                Object.entries(post).forEach(([key, value]) => {
+                    let p = document.createElement('p');
+
+                    p.innerText = `${key} : ${value}`
+
+                    postContainer.appendChild(p)
+                })
+
+                getPostComments()
             })
     }
 
     getUserPost()
+
 
 </script>
 </body>
