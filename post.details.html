@@ -5,23 +5,48 @@
     <title>Title</title>
 
     <style>
+        body {
+            margin: 0;
+        }
+
         .mainContainer {
-            border: 1px yellow solid;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
         }
 
         .postContainer {
-            border: 1px red solid;
-            margin: 5px;
+            background-color: #cddbec;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+
+            p {
+                font-size: 22px;
+
+            }
         }
 
+        .commentsBlock{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            p{
+                font-size: 17px;
+            }
+        }
         .commentContainer {
-            border: 1px green solid;
-            margin: 5px;
+            width: 22%;
+            margin: 8px;
+            background-color: #2d3c4f;
+            border-radius: 10px;
+            color: #d4e0f3;
         }
     </style>
 </head>
 <body>
-<a href="user-details.html">about user</a>
 <div class="mainContainer">
     <div class="postContainer">
 
@@ -39,7 +64,9 @@
         fetch(commentsURL)
             .then(resp => resp.json())
             .then(comments => {
-                console.log(comments);
+                let commentsBlock = document.createElement('div');
+                commentsBlock.classList.add('commentsBlock')
+
                 for (const comment of comments) {
                     let postContainer = document.querySelector('.postContainer');
 
@@ -54,7 +81,8 @@
 
                     })
 
-                    postContainer.appendChild(commentContainer)
+                    commentsBlock.appendChild(commentContainer)
+                    postContainer.appendChild(commentsBlock)
 
                 }
 
@@ -62,7 +90,6 @@
             })
 
     }
-
 
 
     let getUserPost = function () {
