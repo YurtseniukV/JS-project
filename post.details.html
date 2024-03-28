@@ -11,19 +11,31 @@
 
         .mainContainer {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
 
         }
 
         .postContainer {
-            background-color: #cddbec;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f2f6f6;
             text-align: center;
-            width: 100%;
-            margin: 0;
-
+width: 60%;
+            margin: 10px;
+            padding: 15px;
             p {
-                font-size: 22px;
+                padding: 2px;
+                color: black;
+margin: 4px;
+
+                border: 0.8px #838381 solid;
+                border-radius: 8px;
+                width: 50%;
+                font-size: 18px;
 
             }
         }
@@ -33,16 +45,24 @@
             flex-wrap: wrap;
             justify-content: space-evenly;
             align-items: flex-start;
-            p{
-                font-size: 17px;
+            margin: 30px 0;
+            span{
+                display: block;
+                font-size: 12px;
+
+                margin: 4px;
+                font-weight: bold;
+                background-color: #eeeeea;
             }
         }
         .commentContainer {
-            width: 22%;
-            margin: 8px;
-            background-color: #2d3c4f;
+            width: 24%;
+            height: 50%;
+            margin: 2px;
+            background-color: #ffffff;
+            border: 0.4px #091826 solid;
             border-radius: 10px;
-            color: #d4e0f3;
+            color: #091826;
         }
     </style>
 </head>
@@ -74,10 +94,10 @@
                     commentContainer.classList.add('commentContainer')
 
                     Object.entries(comment).forEach(([key, value]) => {
-                        let p = document.createElement('p');
+                        let span = document.createElement('span');
 
-                        p.innerText = `${key} : ${value}`
-                        commentContainer.appendChild(p)
+                        span.innerText = `${key} : ${value}`
+                        commentContainer.appendChild(span)
 
                     })
 

@@ -16,26 +16,31 @@
             font-family: "Roboto", sans-serif;
             font-weight: 400;
             margin: 0;
-            background-color: #c4d1e1;
         }
         .userContainer{
-            background-color: #c4d1e1;
-
+            border-radius: 10px;
+            background-color: rgba(237, 245, 245, 0.67);
+            border: 1px green solid;
             display: flex;
 height: 90vh;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-
-
-width: 100vw;
+            width: 90%;
         }
 
         p{
-            margin: 5px 0;
+            width: 50%;
+            margin: 2px 0;
             font-size: 18px;
+            border: 0.4px grey solid;
+            border-radius: 8px;
+            text-align: center;
         }
         ul{
+            width: 48%;
+            border: 0.4px grey solid;
+            border-radius: 8px;
             font-size: 15px;
             font-weight: bold;
             color: #122d07;
@@ -70,7 +75,7 @@ width: 100vw;
             text-align: center;
             border-radius: 10px;
             margin: 15px;
-            background-color: rgba(228, 239, 239, 0.67);
+            background-color: rgba(224, 229, 229, 0.67);
         }
         .postBlock{
             width: 17%;
@@ -128,7 +133,7 @@ width: 100vw;
                 } else {
                     let p = document.createElement('p');
                     userContainer.appendChild(p)
-                    p.innerHTML = `<span>${key} - </span> ${user[key]} ,`;
+                    p.innerHTML = `<span>${key} - </span> ${user[key]} `;
                 }
 
 
