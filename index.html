@@ -2,111 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-    <style>
-        body{
-            margin: 0;
-            background-color: #f1f4f6;
-        }
-        .usersContainer{
-            width: 100vw;
-            display: flex;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .userBlock{
-            width: 40vw;
-            height:25vh ;
-            margin: 5px 0;
-            border-radius: 10px;
-            border: #020618 3px solid;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            color: #000000;
-            font-family: "Roboto", sans-serif;
-            font-weight: 500;
-            font-size: 24px;
-
-            button{
-                height: 6vh;
-                width: 16vw;
-                box-shadow: 2px 0 14px -4px rgba(110,124,214,0.63);
-                font-size: 16px;
-                font-family: Roboto,SansSerif;
-                border-radius: 20px;
-                border: none;
-                color: white;
-                background-color: rgba(32, 183, 32, 0.82);
-            }
-        }
-
-
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="usersContainer"></div>
+<header class="header">
+    <h1>Users List</h1>
+</header>
 
-<script>
-    let url = new URL('http://jsonplaceholder.typicode.com/users');
+<main class="usersContainer"></main>
 
-    fetch(url)
-        .then(value => value.json())
-        .then(users => {
-let usersContainer = document.querySelector('.usersContainer');
-            for (const user of users) {
-                let userBlock = document.createElement('div');
-                userBlock.classList.add('userBlock');
-
-                userBlock.innerText = `ID : ${user.id},  name: ${user.name}`
-
-                let button = document.createElement('button');
-                button.classList.add('userDetails');
-                button.innerText = 'More details';
-
-                button.addEventListener('click', ()=>{
-                    location.href = `user-details.html?id=${user.id}`;
-                })
-
-
-                userBlock.appendChild(button);
-                usersContainer.appendChild(userBlock)
-                document.body.appendChild(usersContainer);
-
-            }
-        })
-</script>
-
-
-<!--В index.html-->
-<!--1 отримати масив об'єктів з endpoint`а https://jsonplaceholder.typicode.com/users-->
-<!--2 Вивести id,name всіх user в index.html. Окремий блок для кожного user.-->
-<!--3 Додати кожному блоку кнопку/посилання , при кліку на яку відбувається перехід  на сторінку user-details.html, котра має детальну інфорацію про об'єкт на який клікнули-->
-
-
-<!--На странице user-details.html:-->
-<!--4 Вивести всю, без виключення, інформацію про об'єкт user на який клікнули-->
-<!--5 Додати кнопку "post of current user", при кліку на яку, з'являються title всіх постів поточного юзера-->
-<!--(для получения постов используйте эндпоинт https://jsonplaceholder.typicode.com/users/USER_ID/posts)-->
-<!--6 Каждому посту додати кнопку/посилання, при кліку на яку відбувається перехід на сторінку post-details.html, котра має детальну інфу про поточний пост.-->
-
-<!--На странице post-details.html:-->
-<!--7 Вивести всю, без виключення, інформацію про об'єкт post на який клікнули .-->
-<!--8 Нижчє інформаці про пост, вивести всі коментарі поточного поста (ендпоінт  - https://jsonplaceholder.typicode.com/posts/POST_ID/comments)-->
-
-<!--Стилизація проєкта - -->
-<!--index.html - всі блоки з user - по 2 в рядок. кнопки/аосилвння розташувати під інформацією про user.-->
-<!--user-details.html - блок з інфою про user зверху сторінки. Кнопка нижчє, на 90% ширини сторінки, по центру.-->
-<!--блоки з короткою іфною про post - в ряд по 5 .-->
-<!--post-details.html - блок з інфою про пост зверху. Коментарі - по 4 в ряд.-->
-<!--Всі елементи котрі характеризують users, posts, comments візуалізувати, так, щоб було видно що це блоки (дати фон. марджини і тд)-->
+<script src="js/index.js"></script>
 </body>
 </html>

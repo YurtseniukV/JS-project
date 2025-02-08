@@ -2,184 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-    <style>
-        body{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            font-family: "Roboto", sans-serif;
-            font-weight: 400;
-            margin: 0;
-        }
-        .userContainer{
-            border-radius: 10px;
-            background-color: rgba(237, 245, 245, 0.67);
-            border: 1px green solid;
-            display: flex;
-height: 90vh;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            width: 90%;
-        }
-
-        p{
-            width: 50%;
-            margin: 2px 0;
-            font-size: 18px;
-            border: 0.4px grey solid;
-            border-radius: 8px;
-            text-align: center;
-        }
-        ul{
-            width: 48%;
-            border: 0.4px grey solid;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            color: #122d07;
-        }
-        li{
-            font-size: 18px;
-            color: black;
-            font-weight: normal;
-        }
-        span{
-            font-size: 15px;
-            font-weight: bold;
-            color: #122d07;
-        }
-        .buttonCurrentPost{
-            width: 90%;
-            height: 7%;
-            border: 1px #91fa66 solid;
-            border-radius: 10px;
-
-            color: white;
-            background-color: #46cb43;
-            font-size: 18px;
-        }
-        .postBlockGroup{
-            height: 70vh;
-            border: 1px green solid;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-            align-items: center;
-            text-align: center;
-            border-radius: 10px;
-            margin: 15px;
-            background-color: rgba(224, 229, 229, 0.67);
-        }
-        .postBlock{
-            width: 17%;
-            height: 50%;
-            margin: 7px;
-            a{
-                text-decoration: none;
-                font-weight: bold;
-                color: #1b41bb;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/user-details.css">
 </head>
 <body>
+<header class="header">
+    <h1>User Details</h1>
+</header>
 
-<!--<h1><a href="index.html">Users list</a></h1>-->
-<script>
+<main class="userDetailsContainer">
+</main>
 
-    let userId = new URL(location.href).searchParams.get('id');
-
-    let baseURL = `https://jsonplaceholder.typicode.com/users/${userId}`
-    let postsURL = `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-
-
-    fetch(baseURL)
-        .then(resp => resp.json())
-        .then(user => {
-            console.log(user)
-            let userContainer = document.createElement('div');
-            userContainer.classList.add('userContainer');
-            document.body.appendChild(userContainer);
-
-
-            for (const key in user) {
-
-                if (typeof user[key] === 'object') {
-
-                    let ul = document.createElement('ul')
-                    ul.innerText = `${key} : `
-
-                    Object.entries(user[key]).forEach(([item, value]) => {
-                        let li = document.createElement('li')
-                        if (item === 'geo') {
-                            li.innerText = `${item} ( "${value.lat}" , "${value.lng}" )`
-
-                        } else {
-                            li.innerText = `${item} : ${value}.`
-                        }
-
-
-                        ul.appendChild(li);
-                    });
-
-                    userContainer.appendChild(ul)
-                } else {
-                    let p = document.createElement('p');
-                    userContainer.appendChild(p)
-                    p.innerHTML = `<span>${key} - </span> ${user[key]} `;
-                }
-
-
-            }
-
-
-            let buttonCurrentPost = document.createElement('button');
-            buttonCurrentPost.classList.add('buttonCurrentPost');
-            buttonCurrentPost.innerText = 'Post of current user';
-
-            userContainer.appendChild(buttonCurrentPost);
-
-
-            let getUserPost = function () {
-                fetch(postsURL)
-                    .then(resp => resp.json())
-                    .then(posts => {
-let postBlockGroup = document.createElement('div')
-                        postBlockGroup.classList.add('postBlockGroup')
-                        for (const post of posts) {
-let postBlock = document.createElement('div')
-                            postBlock.classList.add('postBlock')
-                            let postTitle = document.createElement('h3')
-                            postTitle.innerText = post.title;
-
-                            let buttonAboutPost = document.createElement('a');
-                            buttonAboutPost.innerText = 'Read more...'
-                            buttonAboutPost.href = `post.details.html?postId=${post.id}`
-
-postBlock.append(postTitle, buttonAboutPost)
-                            postBlockGroup.append(postBlock);
-                        }
-
-                        document.body.appendChild(postBlockGroup)
-                    })
-            }
-
-
-            buttonCurrentPost.addEventListener('click', () => {
-                getUserPost()
-            })
-
-        })
-
-
-</script>
-
+<script src="js/user-details.js"></script>
 </body>
 </html>
